@@ -33,3 +33,4 @@ uses: actions/checkout@v4
     with:
       name: HayatAI-APK
       path: project/app/build/outputs/apk/debug/*.apk
+      
