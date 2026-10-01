@@ -9,9 +9,10 @@ branches:
 jobs:
 build:
 runs-on: ubuntu-latest
+
 steps:
-- name: Checkout code
-uses: actions/checkout@v4
+  - name: Checkout code
+    uses: actions/checkout@v4
 
   - name: Extract project ZIP
     run: unzip -o HayatAI.zip -d project
