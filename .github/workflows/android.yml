@@ -1,36 +1,39 @@
 name: Build HayatAI APK
 
 'on':
-workflow_dispatch:
-push:
-branches:
-- main
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-build:
-runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  - name: Extract project ZIP
-    run: unzip -o HayatAI.zip -d project
+      - name: Check ZIP file
+        run: ls -l HayatAI.zip
 
-  - name: Set up JDK
-    uses: actions/setup-java@v4
-    with:
-      distribution: temurin
-      java-version: '17'
+      - name: Extract ZIP
+        run: unzip -o HayatAI.zip -d project
 
-  - name: Build APK
-    run: |
-      cd project
-      chmod +x gradlew
-      ./gradlew assembleDebug
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
-  - name: Upload APK
-    uses: actions/upload-artifact@v4
-    with:
-      name: HayatAI-APK
-      path: project/app/build/outputs/apk/debug/*.apk
+      - name: Build APK
+        run: |
+          cd project
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: HayatAI-APK
+          path: project/app/build/outputs/apk/debug/*.apk
